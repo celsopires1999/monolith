@@ -13,10 +13,20 @@ namespace FC4.HotelReservation.IntegrationTests;
 
 public partial class WebApiFixture : WebApplicationFactory<Program>
 {
+    // public PostgreSqlContainer PostgresDb { get; } =
+    //     new PostgreSqlBuilder()
+    //         .WithDatabase("hotel_reservation")
+    //         .Build();
+
     public PostgreSqlContainer PostgresDb { get; } =
         new PostgreSqlBuilder()
             .WithDatabase("hotel_reservation")
+            .WithUsername("postgres")
+            .WithPassword("Test1234")
+            .WithImage("postgres:16")
+            .WithPortBinding(54320, 5432)
             .Build();
+
 
     public JsonSerializerOptions JsonSettings { get; } = new()
     {
