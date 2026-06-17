@@ -49,5 +49,6 @@ public class GetHotelTest(WebApiFixture fixture) : IDisposable
     public void Dispose()
     {
         fixture.CleanDatabaseAsync().GetAwaiter().GetResult();
+        GC.SuppressFinalize(this);
     }
 }
