@@ -7,7 +7,7 @@ using static FC4.HotelReservation.IntegrationTests.DataBuilders.ReservationBuild
 namespace FC4.HotelReservation.IntegrationTests.Reservation;
 
 [Collection(nameof(WebApiFixture))]
-public class ListReservationsTest(WebApiFixture fixture) : IAsyncDisposable
+public class ListReservationsTest(WebApiFixture fixture) : IDisposable
 {
     private readonly HttpClient _client = fixture.CreateClient();
     
@@ -71,8 +71,8 @@ public class ListReservationsTest(WebApiFixture fixture) : IAsyncDisposable
         reservation2Output.CreatedAt.Should().BeCloseTo(reservation2.CreatedAt, TimeSpan.FromSeconds(1));
     }
     
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await fixture.CleanDatabaseAsync();
+        fixture.CleanDatabaseAsync().GetAwaiter().GetResult();
     }
 }

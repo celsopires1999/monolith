@@ -25,7 +25,7 @@ public partial class WebApiFixture
 
         await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM payments");
         await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM room_type_rates");
-        await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM room_type_inventories");
+        await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM room_type_inventory");
         await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM reservations");
         await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM rooms");
         await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM room_types");

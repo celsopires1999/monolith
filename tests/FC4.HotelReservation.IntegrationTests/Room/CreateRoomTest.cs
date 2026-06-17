@@ -7,7 +7,7 @@ using static FC4.HotelReservation.IntegrationTests.DataBuilders.CreateRoomInputB
 namespace FC4.HotelReservation.IntegrationTests.Room;
 
 [Collection(nameof(WebApiFixture))]
-public class CreateRoomTest(WebApiFixture fixture) : IAsyncDisposable
+public class CreateRoomTest(WebApiFixture fixture) : IDisposable
 {
     private readonly HttpClient _client = fixture.CreateClient();
 
@@ -69,8 +69,8 @@ public class CreateRoomTest(WebApiFixture fixture) : IAsyncDisposable
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await fixture.CleanDatabaseAsync();
+        fixture.CleanDatabaseAsync().GetAwaiter().GetResult();
     }
 }

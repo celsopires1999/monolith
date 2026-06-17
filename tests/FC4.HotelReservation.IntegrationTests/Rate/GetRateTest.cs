@@ -8,7 +8,7 @@ using static FC4.HotelReservation.IntegrationTests.DataBuilders.RoomTypeRateBuil
 namespace FC4.HotelReservation.IntegrationTests.Rate;
 
 [Collection(nameof(WebApiFixture))]
-public class GetRateTest(WebApiFixture fixture) : IAsyncDisposable
+public class GetRateTest(WebApiFixture fixture) : IDisposable
 {
     private readonly HttpClient _client = fixture.CreateClient();
 
@@ -50,8 +50,8 @@ public class GetRateTest(WebApiFixture fixture) : IAsyncDisposable
         output.Single().Currency.Should().Be("USD");
     }
 
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await fixture.CleanDatabaseAsync();
+        fixture.CleanDatabaseAsync().GetAwaiter().GetResult();
     }
 }

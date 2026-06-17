@@ -12,7 +12,7 @@ using static FC4.HotelReservation.IntegrationTests.DataBuilders.ReservationBuild
 namespace FC4.HotelReservation.IntegrationTests.Payment;
 
 [Collection(nameof(WebApiFixture))]
-public class UpdatePaymentStatusTest(WebApiFixture fixture) : IAsyncDisposable
+public class UpdatePaymentStatusTest(WebApiFixture fixture) : IDisposable
 {
     private readonly HttpClient _client = fixture.CreateClient();
 
@@ -164,8 +164,8 @@ public class UpdatePaymentStatusTest(WebApiFixture fixture) : IAsyncDisposable
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await fixture.CleanDatabaseAsync();
+        fixture.CleanDatabaseAsync().GetAwaiter().GetResult();
     }
 }

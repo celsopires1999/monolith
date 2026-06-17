@@ -7,7 +7,7 @@ using static FC4.HotelReservation.IntegrationTests.DataBuilders.RoomBuilder;
 namespace FC4.HotelReservation.IntegrationTests.Room;
 
 [Collection(nameof(WebApiFixture))]
-public class GetRoomByIdTest(WebApiFixture fixture) : IAsyncDisposable
+public class GetRoomByIdTest(WebApiFixture fixture) : IDisposable
 {
     private readonly HttpClient _client = fixture.CreateClient();
 
@@ -41,8 +41,8 @@ public class GetRoomByIdTest(WebApiFixture fixture) : IAsyncDisposable
     }
 
 
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await fixture.CleanDatabaseAsync();
+        fixture.CleanDatabaseAsync().GetAwaiter().GetResult();
     }
 }

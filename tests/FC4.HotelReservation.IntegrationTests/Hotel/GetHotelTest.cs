@@ -6,7 +6,7 @@ using FluentAssertions;
 namespace FC4.HotelReservation.IntegrationTests.Hotel;
 
 [Collection(nameof(WebApiFixture))]
-public class GetHotelTest(WebApiFixture fixture) : IAsyncDisposable
+public class GetHotelTest(WebApiFixture fixture) : IDisposable
 {
     private readonly HttpClient _client = fixture.CreateClient();
     
@@ -46,8 +46,8 @@ public class GetHotelTest(WebApiFixture fixture) : IAsyncDisposable
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
     
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await fixture.CleanDatabaseAsync();
+        fixture.CleanDatabaseAsync().GetAwaiter().GetResult();
     }
 }

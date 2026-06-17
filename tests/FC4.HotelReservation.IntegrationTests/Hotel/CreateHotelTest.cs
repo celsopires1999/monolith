@@ -7,7 +7,7 @@ using static FC4.HotelReservation.IntegrationTests.DataBuilders.CreateHotelInput
 namespace FC4.HotelReservation.IntegrationTests.Hotel;
 
 [Collection(nameof(WebApiFixture))]
-public class CreateHotelTest(WebApiFixture fixture) : IAsyncDisposable
+public class CreateHotelTest(WebApiFixture fixture) : IDisposable
 {
     private readonly HttpClient _client = fixture.CreateClient();
     
@@ -33,8 +33,8 @@ public class CreateHotelTest(WebApiFixture fixture) : IAsyncDisposable
         savedHotel.Address.ZipCode.Should().Be(input.ZipCode);
     }
 
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await fixture.CleanDatabaseAsync();
+        fixture.CleanDatabaseAsync().GetAwaiter().GetResult();
     }
 }
